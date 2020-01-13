@@ -10,6 +10,7 @@
     <groupId>com.example</groupId>
     <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <!-- 集合工程的packaging 模式 必须是 pom 方式 -->
     <packaging>pom</packaging>
 
 
@@ -25,7 +26,7 @@
     </properties>
 
     <dependencies>
-       <!-- <dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
@@ -40,7 +41,7 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>-->
+        </dependency>
     </dependencies>
 
 
@@ -55,12 +56,34 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <!-- 上传操作 -->
+    <distributionManagement>
+        <repository>
+            <id>my-private-release</id>
+            <name>my-private-release</name>
+            <url>http://192.168.19.130:8081/repository/my-private-release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>my-private-snapshot</id>
+            <name>my-private-snapshot</name>
+            <url>http://192.168.19.130:8081/repository/my-private-snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+
         </plugins>
     </build>
 
